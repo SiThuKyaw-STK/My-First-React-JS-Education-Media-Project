@@ -10,9 +10,11 @@ import Footer from "./Footer";
 const Home = () => {
     return (
         <>
+            <Nav/>
             <Hero/>
             <Application/>
             <OurTeacher/>
+            <Footer/>
         </>
     );
 };

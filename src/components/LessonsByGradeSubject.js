@@ -6,6 +6,8 @@ import ReactPaginate from "react-paginate";
 import {Link, useParams} from "react-router-dom";
 import {useSelector} from "react-redux";
 import DropDown from "./shares/DropDown";
+import Nav from "./shares/Nav";
+import Footer from "./Footer";
 
 const LessonsByGradeSubject = () => {
     const {type,grade_id, id, title, grade} = useSelector(state => state.byGradeSubjectData);
@@ -37,6 +39,7 @@ const LessonsByGradeSubject = () => {
     }, [id, currentPage])
     return (
         <>
+            <Nav/>
             <Nav2/>
             <section id={"searchByGrade"}
                      className={`${lessonsByGradeSubject.length > 0 ? 'flex' : ''} flex-col md:flex-row items-center px-[100px] py-[100px]`}>
@@ -88,6 +91,7 @@ const LessonsByGradeSubject = () => {
 
                 </div>
             </section>
+            <Footer/>
         </>
     );
 };

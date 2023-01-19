@@ -7,6 +7,8 @@ import {Link, useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import DropDown from "./shares/DropDown";
 import {setGradeSubject} from "../redux/actions";
+import Nav from "./shares/Nav";
+import Footer from "./Footer";
 
 const LessonsByGrade = () => {
     const navigate = useNavigate();
@@ -51,6 +53,7 @@ const LessonsByGrade = () => {
     }, [id, currentPage])
     return (
         <>
+            <Nav/>
             <Nav2/>
             <nav className={"w-full bg-nav flex py-[15px] px-[100px] justify-between items-center mt-[1px]"}>
                 <ul className="list-none sm:flex hidden items-center flex-1">
@@ -122,6 +125,7 @@ const LessonsByGrade = () => {
 
                 </div>
             </section>
+            <Footer/>
         </>
     );
 };

@@ -5,6 +5,8 @@ import LessonCard from "./shares/LessonCard";
 import ReactPaginate from "react-paginate";
 import {useParams} from "react-router-dom";
 import {useSelector} from "react-redux";
+import Nav from "./shares/Nav";
+import Footer from "./Footer";
 
 const LessonsByTeacher = () => {
     const {type,id,title} = useSelector(state => state.byTeacherData);
@@ -37,6 +39,7 @@ const LessonsByTeacher = () => {
     }, [id,currentPage])
     return (
         <>
+            <Nav/>
             <Nav2/>
             <section id={"searchByGrade"} className={`${lessonsByTeacher.length>0 ?'flex' :''} flex-col md:flex-row items-center px-[100px] py-[100px]`}>
 
@@ -86,6 +89,7 @@ const LessonsByTeacher = () => {
 
                 </div>
             </section>
+            <Footer/>
         </>
     );
 };

@@ -1,12 +1,14 @@
 import React, {useState} from 'react';
 import logoNav from '../assets/static/logo-nav.png';
 import {Link,useNavigate} from "react-router-dom";
+import Loading from "./shares/Loading";
 
 const Register = () => {
     const [name,setName] = useState("");
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
     const [password_confirmation,setConFirmPassword] = useState("");
+    const [isLoading,setIsLoading] = useState(false);
     const navigator = useNavigate();
     const apiRegister = async user => {
         const response = await fetch(`http://127.0.0.1:8000/api/register`,{
@@ -18,6 +20,7 @@ const Register = () => {
         });
         const resData = await response.json();
         if (resData){
+            setIsLoading(false);
             navigator("/login");
         }else {
             console.log(resData)
@@ -25,6 +28,7 @@ const Register = () => {
     }
     const registerUser = event => {
         event.preventDefault();
+        setIsLoading(true);
         let user = {
             name,email,password,password_confirmation
         }
@@ -36,7 +40,8 @@ const Register = () => {
     }
     return (
         <section id={"register"} className={"min-h-screen grid grid-cols-12 gap-4 relative"}>
-            <div className={"col-span-8 px-[70px] py-[200px]"}>
+            {isLoading && <Loading/>}
+            <div className={"col-span-8 px-[70px] pt-[200px]"}>
                 <img className={"w-[300px] h-[54px]"} src={logoNav} alt=""/>
                 <h1 className={"text-white text-[40px] leading-[45px] font-bold w-[520px] mt-[200px]"}>
                     WELCOME TO EDUCATION ON THE WEB
@@ -44,8 +49,9 @@ const Register = () => {
                 <h3 className={"text-slate-600 text-[20px] leading-[22px] font-normal w-[374px] mt-5"}>
                     Access your logins and personal data in the web app __ quickly and securely.
                 </h3>
+                <Link to={`/`} className={`text-blue-500 hover:text-blue-800 underline mt-5 inline-block`}>Go Home Page</Link>
             </div>
-            <div className="col-span-4 px-[70px] py-[200px] bg-white">
+            <div className="col-span-4 px-[70px] pt-[200px] bg-white">
                 <div className={'absolute right-1 top-5 flex items-center'}>
                     <h1>Already Have Account ?</h1>
                     <Link to={"/login"} className={`bg-blue-500 font-bold text-white px-[10px] py-[10px] ml-2 rounded-md`}>LOGIN HERE !</Link>

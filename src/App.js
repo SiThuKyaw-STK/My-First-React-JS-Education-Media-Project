@@ -30,12 +30,16 @@ import LessonsByGrade from "./components/LessonsByGrade";
 import LessonsByTeacher from "./components/LessonsByTeacher";
 import LessonsByGradeSubject from "./components/LessonsByGradeSubject";
 import ErrorBoundary from "./components/shares/ErrorBoundary";
+import Admin from "./components/admin/Admin";
+import RouteGuard from "./components/shares/RouteGuard";
+import FallBackRoute from "./components/shares/FallBackRoute";
+import AllSub from "./components/admin/subjects/AllSub";
+import EditSub from "./components/admin/subjects/EditSub";
 
 function App(props) {
 
     return (
-        <div className={"bg-primary w-full"}>
-            <Nav/>
+        <div className={"bg-white w-full"}>
             <Routes>
                 <Route path="/" element={<Home/>}/>
                 <Route path="/login" element={<Login/>}/>
@@ -46,8 +50,14 @@ function App(props) {
                 <Route path="/lessonsByTeacher" element={<ErrorBoundary><LessonsByTeacher/></ErrorBoundary>}/>
                 <Route path="/lessonsByGradeSubject" element={<ErrorBoundary><LessonsByGradeSubject/></ErrorBoundary>}/>
                 <Route path="/lessonDetail/:id" element={<ErrorBoundary><LessonDetail/></ErrorBoundary>}/>
+                <Route path="/admin" element={<RouteGuard><Admin/></RouteGuard>}>
+                    <Route path="subjects">
+                        <Route path="all" element={<AllSub/>}/>
+                        <Route path="edit/:id" element={<EditSub/>}/>
+                    </Route>
+                </Route>
+                <Route path="*" element={<FallBackRoute/>} />
             </Routes>
-            <Footer/>
         </div>
     );
 }

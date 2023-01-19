@@ -4,21 +4,21 @@ import logoNav from '../../assets/static/logo-nav.png';
 import close from '../../assets/static/close.svg';
 import menu from '../../assets/static/menu.svg';
 import DropDown from "./DropDown";
-import {Link} from "react-router-dom";
+import {Link,useNavigate} from "react-router-dom";
 import {Menu, Transition} from "@headlessui/react";
+import {useDispatch, useSelector} from "react-redux";
+import {removeUser} from "../../redux/actions";
 
 const Nav = () => {
+    const userData = useSelector(state => state.userData);
     const [toggle, setToggle] = useState(false);
-    const forms = [
-        {
-            id: "login",
-            title: "Login",
-        },
-        {
-            id: "register",
-            title: "Register",
-        }
-    ]
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const logout = () => {
+        dispatch(removeUser(null))
+        navigate("/login");
+    }
+
     return (
         <nav className={"w-full bg-nav flex py-[15px] px-[100px] justify-between items-center navbar"}>
             <Link to={"/"}><img src={logoNav} alt="education" className={"w-[300px] h-[54px]"}/></Link>
@@ -28,7 +28,9 @@ const Nav = () => {
                 <Link to={"/lessons"} className={"font-normal hover:text-white cursor-pointer text-[20px] text-slate-400 mr-10"}>Lessons</Link>
                 <li className={"font-normal hover:text-white cursor-pointer text-[20px] text-slate-400 mr-10"}><a href="#">Testimonials</a>
                 </li>
-                <li className={"font-normal hover:text-white cursor-pointer text-[20px] text-slate-400 mr-10"}><a href="#">Dashboard</a></li>
+                {userData &&
+                    <Link to={`/admin`} className={"font-normal hover:text-white cursor-pointer text-[20px] text-slate-400 mr-10"}>Dashboard</Link>
+                }
                 {/*drop down*/}
                 <Menu as={'div'} className="relative inline-block text-left z-[3]">
                     {({open}) => (
@@ -54,11 +56,21 @@ const Nav = () => {
                                     role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1"
                                     static>
                                     <div className="py-1" role="none">
-                                        {
-                                            forms && forms.map((form) =>
-                                                <Menu.Item key={form.id}>
-                                                    <Link to={`/${form.id}`} className={"text-gray-700 block px-4 py-2 text-sm"}>{form.title}</Link>
-                                                </Menu.Item>)
+                                        {!userData  &&
+                                        <Menu.Item>
+                                            <Link to={`/login`} className={"text-gray-700 block px-4 py-2 text-sm"}>Login</Link>
+                                        </Menu.Item>
+                                        }
+                                        {!userData  &&
+                                        <Menu.Item>
+                                            <Link to={`/register`} className={"text-gray-700 block px-4 py-2 text-sm"}>Register</Link>
+                                        </Menu.Item>
+                                        }
+                                        {/*Logout*/}
+                                        {userData &&
+                                        <Menu.Item>
+                                            <a onClick={logout} className={"text-gray-700 block px-4 py-2 text-sm"}>Logout</a>
+                                        </Menu.Item>
                                         }
                                     </div>
                                 </Menu.Items>

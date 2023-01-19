@@ -3,6 +3,8 @@ import defUserImg from "../assets/static/user-default.jpg";
 import exampleDetailImg from "../assets/static/exampleDetailImg.png";
 import RelatedLessons from "./shares/RelatedLessons";
 import {useParams} from "react-router-dom";
+import Nav2 from "./shares/Nav2";
+import Nav from "./shares/Nav";
 
 const LessonDetail = () => {
     const { id } = useParams();
@@ -18,6 +20,9 @@ const LessonDetail = () => {
         loadLesson();
     },[])
     return (
+        <>
+            <Nav/>
+            <Nav2/>
         <section className={`flex flex-col px-[100px] py-[100px]`}>
             <div className={``}>
                 <span className={`text-gradient text-[25px] leading-[28px] font-normal`}>{lesson.grade}/{lesson.subject}</span>
@@ -60,6 +65,7 @@ const LessonDetail = () => {
                 </div>
             </div>
         </section>
+        </>
     );
 };
 

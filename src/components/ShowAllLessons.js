@@ -5,6 +5,8 @@ import logoImg from "../assets/static/logo-img.png";
 import Nav2 from "./shares/Nav2";
 import ReactPaginate from "react-paginate";
 import Loading from "./shares/Loading";
+import Nav from "./shares/Nav";
+import Footer from "./Footer";
 
 const ShowAllLessons = () => {
     const [lessons, setLessons] = useState([]);
@@ -33,6 +35,7 @@ const ShowAllLessons = () => {
     }, [currentPage])
     return (
         <>
+            <Nav/>
             <Nav2/>
             <section id={"allLessons"} className={`${lessons.length>0 ?'flex' :''} flex-col md:flex-row items-center px-[100px] py-[100px]`}>
 
@@ -81,6 +84,7 @@ const ShowAllLessons = () => {
 
                 </div>
             </section>
+            <Footer/>
         </>
     );
 };
