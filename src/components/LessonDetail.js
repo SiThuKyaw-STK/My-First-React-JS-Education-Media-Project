@@ -25,7 +25,7 @@ const LessonDetail = () => {
             <Nav2/>
         <section className={`flex flex-col px-[100px] py-[100px]`}>
             <div className={``}>
-                <span className={`text-gradient text-[25px] leading-[28px] font-normal`}>{lesson.grade}/{lesson.subject}</span>
+                <span className={`text-gradient text-[25px] leading-[28px] font-normal`}>{lesson.grade_title}/{lesson.subject_title}</span>
                 <h1 className={`text-white text-[40px] leading-[45px] font-bold mt-5`}>
                     {lesson.title}
                 </h1>

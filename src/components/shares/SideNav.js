@@ -26,9 +26,9 @@ const SideNav = () => {
                     <li className="pl-12 mt-3">
                         <ul id="articles" className="text-white">
                             <li className="mt-3">
-                                <a href="#" className="">
+                                <Link to={`/admin/lessons/all`} className="">
                                     <i className="fa-solid fa-table-list mr-1"></i>Lessons
-                                </a>
+                                </Link>
                             </li>
                             <li className="mt-3">
                                 <Link to={`/admin/subjects/all`} className="">
@@ -36,8 +36,9 @@ const SideNav = () => {
                                 </Link>
                             </li>
                             <li className="mt-3">
-                                <a href="#" className="">
-                                    <i className="fa-solid fa-plus mr-1"></i>Create Lesson</a>
+                                <Link to={`/admin/lessons/create`} className="">
+                                    <i className="fa-solid fa-plus mr-1"></i>Create Lesson
+                                </Link>
                             </li>
                         </ul>
                     </li>

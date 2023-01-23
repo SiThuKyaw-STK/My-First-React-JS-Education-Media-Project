@@ -43,7 +43,7 @@ const ShowAllLessons = () => {
                     {isLoading && <Loading/>}
 
                       <h1 className={`text-green-400 text-[25px] leading-[28px] font-bold`}>All Lessons</h1>
-                      <div className={`grid grid-cols-4 gap-10 mt-5`}>
+                      <div className={`grid grid-cols-5 gap-10 mt-5`}>
                           {
                               lessons.length > 0 && lessons.map((lesson) => <LessonCard
                                   imgWidth={"w-full"}
@@ -54,8 +54,8 @@ const ShowAllLessons = () => {
                                   title={lesson.title.substr(0,30)}
                                   description={lesson.description.substr(0,60)}
                                   date={lesson.date}
-                                  grade={lesson.grade}
-                                  subject={lesson.subject}
+                                  grade={lesson.grade_title}
+                                  subject={lesson.subject_title}
                                   uploader={lesson.uploader.title}
                               />)
                           }

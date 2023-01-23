@@ -35,11 +35,15 @@ import RouteGuard from "./components/shares/RouteGuard";
 import FallBackRoute from "./components/shares/FallBackRoute";
 import AllSub from "./components/admin/subjects/AllSub";
 import EditSub from "./components/admin/subjects/EditSub";
+import AllLessons from "./components/admin/lessons/AllLessons";
+import DetailLesson from "./components/admin/lessons/DetailLesson";
+import EditLesson from "./components/admin/lessons/EditLesson";
+import CreateLesson from "./components/admin/lessons/CreateLesson";
 
 function App(props) {
 
     return (
-        <div className={"bg-white w-full"}>
+        <div className={"bg-primary w-full"}>
             <Routes>
                 <Route path="/" element={<Home/>}/>
                 <Route path="/login" element={<Login/>}/>
@@ -54,6 +58,12 @@ function App(props) {
                     <Route path="subjects">
                         <Route path="all" element={<AllSub/>}/>
                         <Route path="edit/:id" element={<EditSub/>}/>
+                    </Route>
+                    <Route path="lessons">
+                        <Route path="all" element={<AllLessons/>}/>
+                        <Route path="create" element={<CreateLesson/>}/>
+                        <Route path="detail/:id" element={<DetailLesson/>}/>
+                        <Route path="edit/:id" element={<EditLesson/>}/>
                     </Route>
                 </Route>
                 <Route path="*" element={<FallBackRoute/>} />

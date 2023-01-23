@@ -121,7 +121,7 @@ const AllSub = () => {
             <div className={`grid grid-cols-12 gap-6 m-3`}>
                 <div className={`col-span-6`}>
                     <div className={``}>
-                        <h1 className={`text-[20px] font-bold mb-2`}><i className="fa fa-pen mr-1"></i>Create Subjects</h1>
+                        <h1 className={`text-[30px] text-info font-bold mb-2`}><i className="fa fa-pen mr-1"></i>Create Subjects</h1>
                         <form onSubmit={submitSubject}>
                             <div className="overflow-hidden border border-gray-200 shadow-md sm:rounded-md">
                                 <div className="bg-white px-4 py-5 sm:p-6">
@@ -169,7 +169,7 @@ const AllSub = () => {
                     </div>
                 </div>
                 <div className={`col-span-6`}>
-                    <h1 className={`text-[20px] font-bold mb-2`}><i className="fa fa-list mr-1"></i>Subjects List</h1>
+                    <h1 className={`text-[30px] text-info font-bold mb-2`}><i className="fa fa-list mr-1"></i>Subjects List</h1>
                     <DataTable
                         columns={columns}
                         data={subjects}

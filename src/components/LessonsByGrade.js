@@ -95,8 +95,8 @@ const LessonsByGrade = () => {
                                 title={lesson.title.substr(0, 30)}
                                 description={lesson.description.substr(0, 60)}
                                 date={lesson.date}
-                                grade={lesson.grade}
-                                subject={lesson.subject}
+                                grade={lesson.grade_title}
+                                subject={lesson.subject_title}
                                 uploader={lesson.uploader.title}
                             />)
                         }
