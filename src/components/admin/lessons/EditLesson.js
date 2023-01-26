@@ -8,6 +8,7 @@ const EditLesson = () => {
     const userData = useSelector(state => state.userData);
     const currentUser = userData.data[0].id;
     const navigate = useNavigate();
+    const [file, setFile] = useState('');
     const [grades, setGrades] = useState([]);
     const [grade, setGrade] = useState('');
     const [currentGrade, setCurrentGrade] = useState('');
@@ -16,6 +17,8 @@ const EditLesson = () => {
     const [subjectsByGrade, setSubjectsByGrade] = useState([]);
     const [title, setTitle] = useState('');
     const [desc, setDesc] = useState('');
+    const [imgPreview, setImgPreview] = useState(null);
+    const [oldImg,setOldImg] = useState(null);
     const loadGrades = async () => {
         const response = await fetch(`http://127.0.0.1:8000/api/grades`);
         const resData = await response.json();
@@ -24,7 +27,7 @@ const EditLesson = () => {
     const loadSubjectsByGrade = async () => {
         const response = await fetch(`http://127.0.0.1:8000/api/subjectsByGrade/${currentGrade}`);
         const resData = await response.json();
-        // console.log(resData)
+        // console.log('subjectsByGrade', resData.data)
         setSubjectsByGrade(resData.data)
     }
     const loadLesson = async () => {
@@ -34,33 +37,48 @@ const EditLesson = () => {
         setSubject(resData.data.subject);
         setTitle(resData.data.title);
         setDesc(resData.data.description);
-        console.log(resData.data)
+        setOldImg(resData.data.headerImage);
     }
     const apiUpdateLesson = async () => {
+        const formData = new FormData();
+        formData.append('_method','PUT');
+        formData.append('grade', currentGrade);
+        formData.append('subject', currentSubject);
+        formData.append('lesson_title', title);
+        formData.append('lesson_description', desc);
+        formData.append('header_image', file);
+        formData.append("user_id", currentUser);
         const response = await fetch(`http://127.0.0.1:8000/api/lessons/${id}`, {
-            method: "PATCH",
-            body: JSON.stringify({
-                grade: currentGrade,
-                subject: currentSubject,
-                lesson_title: title,
-                lesson_description: desc,
-                user_id: currentUser
-            }),
+            method: "POST",
+            body: formData,
             headers: {
-                'content-type': "application/json",
+                // 'Content-Type': 'application/json',
+                // 'enctype': 'multipart/form-data',
                 authorization: `Bearer ${userData.token}`
             }
         });
         const resData = await response.json();
+        console.log('updateData::: ', resData)
         if (resData) {
             navigate('/admin/lessons/all')
+        } else {
+            console.log(resData)
         }
     }
     useEffect(() => {
         loadGrades();
         loadLesson();
         loadSubjectsByGrade();
-    }, [currentGrade]);
+        if (file){
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImgPreview(reader.result);
+            }
+            reader.readAsDataURL(file);
+        }else {
+            setImgPreview(null);
+        }
+    }, [currentGrade,file]);
     let clickGrade = setInterval(function () {
         let data = document.getElementById('grade');
         let data2 = document.getElementById('subject')
@@ -72,8 +90,11 @@ const EditLesson = () => {
     }, 1000);
     const submitLesson = e => {
         e.preventDefault();
-        // console.log(currentGrade,currentSubject,title,desc)
         apiUpdateLesson();
+    }
+    const onFileChange = e => {
+        console.log('OnFileChange', e.target.files[0])
+        setFile(e.target.files[0]);
     }
     return (
         <div className={`px-[100px] py-[50px]`}>
@@ -123,6 +144,39 @@ const EditLesson = () => {
                                value={title}
                                onChange={e => setTitle(e.target.value)}
                                autoComplete="given-name"/>
+                    </div>
+                    <div className="mb-5">
+                        <label className="block text-lg font-bold text-gray-600">Header Image</label>
+                        <div
+                            className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
+                            <div className="space-y-1 text-center">
+                                {imgPreview ? <img className={`w-[100px] m-auto`} src={imgPreview} alt=""/>: oldImg==null ?
+                                    <svg className="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none"
+                                         viewBox="0 0 48 48" aria-hidden="true">
+                                        <path
+                                            d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                                            strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                    </svg>
+                                    :<img className={`w-[100px] m-auto`} src={`http://127.0.0.1:8000/storage/header_image/${oldImg}`} alt=""/>}
+                                <div className="flex text-sm text-gray-600">
+                                    <label htmlFor="file-upload"
+                                           className="relative cursor-pointer rounded-md bg-white font-medium
+                                           text-indigo-600 focus-within:outline-none focus-within:ring-2
+                                           focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500">
+                                        <span>Upload a file</span>
+                                        <input
+                                            accept={`image/*`}
+                                            onChange={onFileChange}
+                                            id="file-upload"
+                                            name="file-upload"
+                                            type="file"
+                                            className="sr-only"/>
+                                    </label>
+                                    <p className="pl-1">or drag and drop</p>
+                                </div>
+                                <p className="text-xs text-gray-500">PNG, JPG, up to 10MB</p>
+                            </div>
+                        </div>
                     </div>
                     <div className="mb-5">
                         <label htmlFor="lesson-description" className="block text-lg font-bold text-gray-600">

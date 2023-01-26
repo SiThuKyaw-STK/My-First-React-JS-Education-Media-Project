@@ -113,7 +113,7 @@ const AllLessons = () => {
 
         const response = await fetch(`http://127.0.0.1:8000/api/lessons?page=${page}`);
         const resData = await response.json();
-        console.log(resData)
+        // console.log(resData)
 
         setLessons(resData.data);
     };

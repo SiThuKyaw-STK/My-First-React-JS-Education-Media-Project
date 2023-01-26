@@ -18,7 +18,6 @@ const EditSub = () => {
                 user_id:userData.data[0].id,
             }),
             headers: {
-                'content-type': "application/json",
                 authorization: `Bearer ${userData.token}`
             }
         });
