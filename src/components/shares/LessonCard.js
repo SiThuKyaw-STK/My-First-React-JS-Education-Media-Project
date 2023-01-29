@@ -12,7 +12,6 @@ const LessonCard = ({
                         subject,
                         uploader,
                         headerImage,
-                        date,
                         id
                     }) => {
     return (
@@ -22,17 +21,13 @@ const LessonCard = ({
                     src={headerImage ? `http://127.0.0.1:8000/storage/header_image/${headerImage}` : logoImg}
                     className={`${imgWidth} ${imgHeight} ${imgMargin} object-cover rounded-md`} alt="headerImage"/>
                 <div>
-                    <div className={`flex justify-between`}>
                     <span className={`text-[12px] leading-[18px] font-normal text-white`}>
                         {grade}/{subject}
                     </span>
-                        <span className={`text-[12px] leading-[18px] font-normal text-white`}>
-                        <i className="fa fa-calendar-alt mr-1"></i>{date}
-                    </span>
-                    </div>
                     <h2 className={`text-gradient text-[18px] leading-[20px] font-bold my-3`}>
                         {title}
                     </h2>
+
                     <p
                         className={`text-white text-[14px] text-justify leading-[21px] font-normal`}
                     >

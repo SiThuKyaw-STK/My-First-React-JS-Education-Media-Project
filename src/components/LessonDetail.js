@@ -9,12 +9,16 @@ import Nav from "./shares/Nav";
 const LessonDetail = () => {
     const { id } = useParams();
     const [lesson,setLesson] = useState([]);
+    const [grade,setGrade] = useState('');
+    const [subject,setSubject] =useState('');
     const [uploader,setUploader] = useState([]);
     const loadLesson = async () => {
         const response = await fetch(`http://127.0.0.1:8000/api/lessons/${id}`);
         const resData = await response.json();
         setLesson(resData.data);
-        setUploader(resData.data.uploader.title);
+        setGrade(resData.data.grade);
+        setSubject(resData.data.subject);
+        setUploader(resData.data.uploader);
     }
     useEffect(() => {
         loadLesson();
@@ -25,7 +29,7 @@ const LessonDetail = () => {
             <Nav2/>
         <section className={`flex flex-col px-[100px] py-[100px]`}>
             <div className={``}>
-                <span className={`text-gradient text-[25px] leading-[28px] font-normal`}>{lesson.grade_title}/{lesson.subject_title}</span>
+                <span className={`text-gradient text-[25px] leading-[28px] font-normal`}>{grade.title}/{subject.title}</span>
                 <h1 className={`text-white text-[40px] leading-[45px] font-bold mt-5`}>
                     {lesson.title}
                 </h1>
@@ -34,9 +38,14 @@ const LessonDetail = () => {
                     vitae sit non turpis sollicitudin.
                 </h2>
                 <div className={`flex items-center mt-8`}>
-                    <img className={`w-[50px] h-[50px] rounded-full`} src={defUserImg} alt=""/>
+                    {
+                        uploader.user_image ? <img className={`w-[50px] h-[50px] rounded-full object-cover`}
+                                                   src={`http://127.0.0.1:8000/storage/profile/${uploader.user_image}`}/>:
+                                              <img className={`w-[50px] h-[50px] rounded-full object-cover`}
+                                                   src={defUserImg}/>
+                    }
                     <span className={`text-white text-[24px] font-normal mx-3`}>
-                        By <strong className={`text-gradient`}>{uploader}</strong></span>
+                        By <strong className={`text-gradient`}>{uploader.title}</strong></span>
                     <span className={`text-slate-400 text-[24px] font-normal`}>{lesson.date}</span>
                 </div>
             </div>

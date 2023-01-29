@@ -55,6 +55,7 @@ const LessonsByTeacher = () => {
                                 imgWidth={"w-full"}
                                 imgHeight={"h-[182px]"}
                                 key={lesson.id}
+                                id={lesson.id}
                                 headerImage={lesson.headerImage}
                                 title={lesson.title.substr(0,30)}
                                 description={lesson.description.substr(0,60)}

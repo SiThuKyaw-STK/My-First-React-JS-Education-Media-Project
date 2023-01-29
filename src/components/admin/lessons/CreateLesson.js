@@ -39,7 +39,6 @@ const CreateLesson = () => {
                 authorization: `Bearer ${userData.token}`
             }
         });
-        console.log(response)
         const resData = await response.json();
         if (resData) {
             navigate('/admin/lessons/all')

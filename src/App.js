@@ -1,26 +1,10 @@
 import React, {Fragment, useRef, useState} from "react";
-import Nav from "./components/shares/Nav";
-import Hero from "./components/Hero";
-import Application from "./components/Application";
-import OurTeacher from "./components/OurTeacher";
-import Footer from "./components/Footer";
 import {Routes, Route} from "react-router-dom";
-import DropDown from "./components/shares/DropDown";
-import SlideShow from "./components/shares/SlideShow";
-import LatestLesson from "./components/LatestLesson";
-import logoImg from "./assets/static/logo-img.png";
-import {Swiper, SwiperSlide} from "swiper/react";
-import {Navigation, Pagination, Scrollbar, A11y} from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import LessonCard from "./components/shares/LessonCard";
-import MostViewLesson from "./components/MostViewLesson";
-import Nav2 from "./components/shares/Nav2";
-import Ads from "./components/shares/Ads";
 import LessonDetail from "./components/LessonDetail";
-import logoNav from "./assets/static/logo-nav.png";
 import Login from "./components/Login";
 import Home from "./components/Home";
 import ShowLessons from "./components/ShowLessons";
@@ -39,6 +23,7 @@ import AllLessons from "./components/admin/lessons/AllLessons";
 import DetailLesson from "./components/admin/lessons/DetailLesson";
 import EditLesson from "./components/admin/lessons/EditLesson";
 import CreateLesson from "./components/admin/lessons/CreateLesson";
+import ProfileDetail from "./components/admin/profile/ProfileDetail";
 
 function App(props) {
 
@@ -64,6 +49,9 @@ function App(props) {
                         <Route path="create" element={<CreateLesson/>}/>
                         <Route path="detail/:id" element={<DetailLesson/>}/>
                         <Route path="edit/:id" element={<EditLesson/>}/>
+                    </Route>
+                    <Route path="profile">
+                        <Route path="detail/:id" element={<ProfileDetail/>}/>
                     </Route>
                 </Route>
                 <Route path="*" element={<FallBackRoute/>} />
