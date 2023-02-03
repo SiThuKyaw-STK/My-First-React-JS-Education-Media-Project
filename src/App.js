@@ -24,6 +24,8 @@ import DetailLesson from "./components/admin/lessons/DetailLesson";
 import EditLesson from "./components/admin/lessons/EditLesson";
 import CreateLesson from "./components/admin/lessons/CreateLesson";
 import ProfileDetail from "./components/admin/profile/ProfileDetail";
+import AllUsers from "./components/admin/users/AllUsers";
+import UserProfileDetail from "./components/admin/users/UserProfileDetail";
 
 function App(props) {
 
@@ -52,6 +54,10 @@ function App(props) {
                     </Route>
                     <Route path="profile">
                         <Route path="detail/:id" element={<ProfileDetail/>}/>
+                    </Route>
+                    <Route path="users">
+                        <Route path="all" element={<AllUsers/>}/>
+                        <Route path="detail/:id" element={<UserProfileDetail/>}/>
                     </Route>
                 </Route>
                 <Route path="*" element={<FallBackRoute/>} />

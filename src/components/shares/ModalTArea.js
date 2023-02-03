@@ -41,6 +41,7 @@ const ModalTArea = ({isOpen,closeModal,submit,onChange,inputTitle,inputData}) =>
                                     <textarea className="mt-1 block w-full rounded-md border-gray-400 shadow-sm
                                           focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                            name=""
+                                              minLength={100}
                                            id=""
                                               rows="15"
                                            defaultValue={inputData}

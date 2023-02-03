@@ -28,7 +28,7 @@ const ProfileDetail = () => {
         const formData = new FormData();
         formData.append('_method', 'PUT');
         formData.append('name', name);
-        const response = await fetch(`http://127.0.0.1:8000/api/users/${id}`, {
+        const response = await fetch(`http://127.0.0.1:8000/api/user_profile/${id}`, {
             method: "POST",
             body: formData,
             headers: {
@@ -45,7 +45,7 @@ const ProfileDetail = () => {
         const formData = new FormData();
         formData.append('_method', 'PUT');
         formData.append('email', email);
-        const response = await fetch(`http://127.0.0.1:8000/api/users/${id}`, {
+        const response = await fetch(`http://127.0.0.1:8000/api/user_profile/${id}`, {
             method: "POST",
             body: formData,
             headers: {
@@ -62,7 +62,7 @@ const ProfileDetail = () => {
         const formData = new FormData();
         formData.append('_method', 'PUT');
         formData.append('bio', cBio);
-        const response = await fetch(`http://127.0.0.1:8000/api/users/${id}`, {
+        const response = await fetch(`http://127.0.0.1:8000/api/user_profile/${id}`, {
             method: "POST",
             body: formData,
             headers: {
@@ -71,6 +71,7 @@ const ProfileDetail = () => {
             }
         })
         const resData = await response.json();
+        console.log(resData)
         if (resData) {
             loadUser();
         }
@@ -79,7 +80,7 @@ const ProfileDetail = () => {
         const formData = new FormData();
         formData.append('_method', 'PUT');
         formData.append('user_image', cImg);
-        const response = await fetch(`http://127.0.0.1:8000/api/users/${id}`, {
+        const response = await fetch(`http://127.0.0.1:8000/api/user_profile/${id}`, {
             method: "POST",
             body: formData,
             headers: {
@@ -88,12 +89,13 @@ const ProfileDetail = () => {
             }
         })
         const resData = await response.json();
+        console.log("image Update",resData)
         if (resData) {
             loadUser();
         }
     };
     const loadUser = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/users/${id}`);
+        const response = await fetch(`http://127.0.0.1:8000/api/user_profile/${id}`);
         const resData = await response.json();
         setUser(resData);
         setName(resData.name);
@@ -164,8 +166,11 @@ const ProfileDetail = () => {
         setCImg(e.target.files[0]);
     }
     return (
-        <div className={` grid grid-cols-12 gap-4 m-12`}>
-            <div className={`col-span-6 p-12 bg-white text-center rounded-lg `}>
+        <div className={`m-12`}>
+            <h1 className={`text-[30px] text-info font-bold mb-2`}>
+                <i className="fa fa-address-card mr-1"></i>Profile Setting
+            </h1>
+            <div className={`p-12 bg-white text-center rounded-lg`}>
                 <div className={`relative inline-block`}>
                     {
                         img !== null ? <img src={`http://127.0.0.1:8000/storage/profile/${img}`}

@@ -14,7 +14,7 @@ const Nav2 = () => {
 
     };
     const loadUsers = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/users`);
+        const response = await fetch(`http://127.0.0.1:8000/api/allUsers`);
         const resData = await response.json();
         setUsers(resData.data);
 

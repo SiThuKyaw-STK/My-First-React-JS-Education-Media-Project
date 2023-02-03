@@ -1,8 +1,11 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import img from "../../assets/static/logo-nav.png";
+import {useSelector} from "react-redux";
 
 const SideNav = () => {
+    const userData = useSelector(state => state.userData);
+    const userRole = userData.data[0].role;
     return (
         <div className={`col-span-2  bg-nav min-h-screen`}>
             <Link to={`/`}><img className={`py-5 px-5`} src={img} alt=""/></Link>
@@ -43,17 +46,22 @@ const SideNav = () => {
                         </ul>
                     </li>
                     <div className={`my-3 inline-block`}></div>
-                    <li className="text-dimWhite font-bold px-5">
-                        <i className="fa fa-users mr-1"></i> Users Control
-                    </li>
-                    <li className="">
-                        <ul id="users" className="text-white pl-12 mt-3">
-                            <li className="">
-                                <a href="#" className="">
-                                    <i className="fa fa-users mr-1"></i>Users</a>
+                    {
+                        userRole === "0" || userRole === "1" ?
+                        <>
+                            <li className="text-dimWhite font-bold px-5">
+                                <i className="fa fa-users mr-1"></i> Users Control
                             </li>
-                        </ul>
-                    </li>
+                            <li className="">
+                                <ul id="users" className="text-white pl-12 mt-3">
+                                    <li className="">
+                                        <Link to={`/admin/users/all`} className="">
+                                            <i className="fa fa-users mr-1"></i>Users</Link>
+                                    </li>
+                                </ul>
+                            </li>
+                        </>:""
+                    }
                     <div className={`my-3 inline-block`}></div>
                     <li className="text-dimWhite font-bold px-5">
                         <i className="fa-solid fa-image mr-1"></i> Gallery
